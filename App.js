@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 
 
 import Test from './src/Components/Test';
+import LoginPage from './src/Components/LoginPage';
 
 
 export default class App extends Component {
@@ -17,7 +18,7 @@ export default class App extends Component {
 
    render() {
       return (
-         <Test/>
+         <LoginPage/>
       );
    }
 }
