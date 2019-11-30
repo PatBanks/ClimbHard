@@ -1,0 +1,35 @@
+#!/bin/bash
+# the I'm Lazy script from Brandon
+
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+printf "${YELLOW}L A Z Y\n${NC}"
+
+if [[ "$#" -ne "1" ]]; then
+    printf "${RED}You must pass a single argument. Possilble options are:\n${NC}"
+    printf "    run a           run's yarn react-native run-android\n"
+    printf "    run i           run's yarn react-native run-ios\n"
+    printf "    run gc          runs gradlew clean in the android directory\n"
+    printf "    run pi          runs pod install in the ios directory\n"
+elif [[ "$1" == "a" ]]; then
+    printf "${BLUE}Doing android react-native build with yarn\n${NC}"
+    yarn react-native run-android
+elif [[ "$1" == "i" ]]; then
+    printf "${BLUE}Doing ios react-native build with yarn\n${NC}"
+    printf "${YELLOW}Note this only works on macOS\n${NC}"
+    yarn react-native run-ios
+elif [[ "$1" == "gc" ]]; then
+    printf "${BLUE}Doing gradlew clean script in the android directory\n${NC}"
+    cd android/
+    ./gradlew clean
+    cd ..
+elif [[ "$1" == "pi" ]]; then
+    printf "${BLUE}Doing pod install script in the ios directory\n${NC}"
+    printf "${YELLOW}Note this only works on macOS\n${NC}"
+    cd ios/
+    pod install
+    cd ..
+fi
