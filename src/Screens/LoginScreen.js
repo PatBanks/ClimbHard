@@ -12,6 +12,8 @@ import {
     Button,
     Image,
 } from 'react-native';
+import { NavigationActions, StackActions } from 'react-navigation';
+
 
 import reactIcon from '../react-icon.png';
 
@@ -50,9 +52,21 @@ export default class LoginPage extends Component {
     componentDidUpdate() {
         if (this.state.firebaseAuth) {
 
-            const { navigation } = this.props;
-            //navigate
-            navigation.navigate('Profile', {auth: this.state.firebaseAuth});
+            // Reset the stack to just being in profile
+            // You have to "navigate" twice since LoginScreen is in the PreLogin stack and doesn't know about Profile
+            const resetAction = StackActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate(
+                    {
+                        routeName: 'PostLogin',
+                        action: NavigationActions.navigate({
+                            routeName: 'Profile',
+                            params: { auth: this.state.firebaseAuth },
+                        }),
+                    }
+                )],
+            });
+            this.props.navigation.dispatch(resetAction);
         }
     }
 

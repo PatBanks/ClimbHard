@@ -11,15 +11,14 @@ import {
 import LoginPage from './src/Screens/LoginScreen';
 import ProfileScreen from './src/Screens/ProfileScreen';
 
-const RootNavigator = createStackNavigator(
+
+const PostLoginStack = createStackNavigator(
     {
-        Login: { screen: LoginPage },
         Profile: { screen: ProfileScreen },
     },
     {
-        initialRouteName: 'Login',
+        initialRouteName: 'Profile',
         headerMode: 'float',
-
         defaultNavigationOptions: {
             headerStyle: {
                 backgroundColor: '#f4511e',
@@ -29,6 +28,27 @@ const RootNavigator = createStackNavigator(
                 fontWeight: 'bold',
             },
         },
+    },
+);
+
+const PreLoginStack = createStackNavigator(
+    {
+        Login: { screen: LoginPage },
+    },
+    {
+        initialRouteName: 'Login',
+        headerMode: 'none',
+    },
+);
+
+const RootNavigator = createStackNavigator(
+    {
+        PreLogin: { screen: PreLoginStack },
+        PostLogin: { screen : PostLoginStack },
+    },
+    {
+        initialRouteName: 'PreLogin',
+        headerMode: 'none',
     },
 );
 

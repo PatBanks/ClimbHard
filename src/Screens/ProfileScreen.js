@@ -17,6 +17,8 @@ import {
 import reactIcon from '../react-icon.png';
 
 import { firebase } from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
 import {
     GoogleSignin,
     GoogleSigninButton,
@@ -30,16 +32,19 @@ export default class LoginPage extends Component {
         title: 'Profile',
     };
 
+    auth = null;
+    profile = null;
+
     constructor(props) {
         super(props);
 
-        this.state = {
-            auth: this.props.navigation.getParam('auth', null),
-        };
+        this.auth = this.props.navigation.getParam('auth', null);
+        this.profile = this.auth.user;
     }
 
     async componentDidMount() {
-
+        // Read the users documents
+        await this.getFirestoreDataForThisUser();
     }
 
     componentDidUpdate() {
@@ -49,23 +54,68 @@ export default class LoginPage extends Component {
         // remove listeners here
     }
 
+    async getFirestoreDataForThisUser() {
+        const muid = this.profile.uid;
+        console.log('Getting firestore data under document name: ', muid);
+
+        // Check if the doc exists
+        const querySnapshot = await firestore()
+            .collection('users')
+            .doc(muid)
+            .get();
+
+        const data = querySnapshot.data();
+
+        if (data) {
+            // handle data
+            // console.log('User data', data);
+
+            const mUserWorkoutsQuerySnapshot = await firestore()
+                .collection('users')
+                .doc(muid)
+                .collection('workouts')
+                .get();
+
+            if ( mUserWorkoutsQuerySnapshot.size !== 0) {
+                console.log(mUserWorkoutsQuerySnapshot);
+                console.log('Total workouts', mUserWorkoutsQuerySnapshot.size);
+                console.log('Workout documents', mUserWorkoutsQuerySnapshot.docs);
+
+            } else {
+                console.log('user has no workouts');
+            }
+
+        } else {
+            // no data yet. Create DB entry
+            console.log('No data. Creating user database entry');
+            const querySnapshot = await firestore()
+                .collection('users')
+                .doc(muid)
+                .set({
+                    email: this.profile.email,
+                    name: this.profile.displayName,
+                    locale: this.auth.additionalUserInfo.profile.locale,
+                    uid: this.profile.uid,
+                });
+        }
+    }
 
 
     render() {
 
-        const user = this.state.auth.additionalUserInfo.profile;
+        const user = this.profile;
 
         return (
             <View style={styles.container}>
                 <View style={styles.profileContainer}>
 
                     <Image
-                        source={{ uri: user.picture }}
+                        source={{ uri: user.photoURL }}
                         style={styles.userPicture} />
 
-                    <View style={{...styles.profileContainer, flexDirection: 'column'}}>
+                    <View style={{ ...styles.profileContainer, flexDirection: 'column' }}>
                         <Text>{user.email}</Text>
-                        <Text>{user.given_name + ' ' + user.family_name}</Text>
+                        <Text>{user.displayName}</Text>
                     </View>
 
                 </View>
