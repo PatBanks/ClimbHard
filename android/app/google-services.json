@@ -15,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "655046320725-r701o6u15jgtl62vh66s52210sv9f8ho.apps.googleusercontent.com",
+          "client_id": "655046320725-e4far62q10vcujuadcaqqlcb2349dj4a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.climbhard",
+            "certificate_hash": "ddf270a8c55ab0cc14eddb9c748070b47480104b"
+          }
+        },
+        {
+          "client_id": "655046320725-cfe92mprclk7mlufu5tfk89d8mlnsv2n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.climbhard",
