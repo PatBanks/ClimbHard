@@ -7,7 +7,7 @@ import { StyleSheet, View, Text } from 'react-native';
 
 
 //Class for the navigation drawer.
-class NavigationDrawerStructure extends Component {
+export default class NavigationDrawerStructure extends Component {
   toggleDrawer = () => {
     //Props for the drawer toggle.
     this.props.navigationProps.toggleDrawer();
@@ -26,4 +26,3 @@ class NavigationDrawerStructure extends Component {
     );
   }
 }
-export default NavigationDrawerStructure;

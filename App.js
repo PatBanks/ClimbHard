@@ -17,55 +17,6 @@ import SettingsScreen from './src/Screens/SettingsScreen';
 import WorkoutScreen from './src/Screens/WorkoutScreen';
 
 
-//Base Stack Navigator. Contains the Prelogin page and the drawer.
-const RootNavigator = createStackNavigator(
-    {
-        PreLogin: { screen: PreLoginStack },
-        Drawer: { screen: DrawerNavigator},
-        //PostLogin: { screen : PostLoginStack },
-    },
-    {
-        initialRouteName: 'PreLogin',
-        headerMode: 'none',
-    },
-);
-
-//PreLogin stack. It's the login page, however it authenticates
-//automatically if you've signed in before with google.
-//Thanks googs.
-const PreLoginStack = createStackNavigator(
-    {
-        Login: { screen: LoginPage },
-    },
-    {
-        initialRouteName: 'Login',
-        headerMode: 'none',
-    },
-);
-
-//The contents of the drawer.
-//better than your sock drawer.
-const DrawerNavigator = createDrawerNavigator({
-  PostLogin: {
-    screen: PostLoginStack,
-    navigationOptions: {
-      drawerLabel: 'Profile',
-    }
-  },
-  Settings: {
-    screen: SettingsStack,
-    navigationOptions: {
-      drawerLabel: 'Settings',
-    }
-  },
-  Workouts: {
-    screen: WorkoutStack,
-    navigationOptions: {
-      drawerLabel: 'Workouts',
-    }
-  },
-})
-
 //The main course.
 const PostLoginStack = createStackNavigator({
   Profile: {
@@ -120,6 +71,61 @@ const WorkoutStack = createStackNavigator({
     }),
   },
 });
+
+//PreLogin stack. It's the login page, however it authenticates
+//automatically if you've signed in before with google.
+//Thanks googs.
+const PreLoginStack = createStackNavigator(
+    {
+        Login: { screen: LoginPage },
+    },
+    {
+        initialRouteName: 'Login',
+        headerMode: 'none',
+    },
+);
+
+//The contents of the drawer.
+//better than your sock drawer.
+const DrawerNavigator = createDrawerNavigator({
+  PostLogin: {
+    screen: PostLoginStack,
+    navigationOptions: {
+      drawerLabel: 'Profile',
+    }
+  },
+  Settings: {
+    screen: SettingsStack,
+    navigationOptions: {
+      drawerLabel: 'Settings',
+    }
+  },
+  Workouts: {
+    screen: WorkoutStack,
+    navigationOptions: {
+      drawerLabel: 'Workouts',
+    }
+  },
+},
+{
+  initialRouteName: 'PostLogin',
+  headerMode: 'screen',
+})
+
+
+//Base Stack Navigator. Contains the Prelogin page and the drawer.
+const RootNavigator = createStackNavigator(
+    {
+        PreLogin: { screen: PreLoginStack },
+        Drawer: { screen: DrawerNavigator},
+        //PostLogin: { screen : PostLoginStack },
+    },
+    {
+        initialRouteName: 'PreLogin',
+        headerMode: 'none',
+    },
+);
+
 
 //create the container for the root navigator. This should
 //create the containers for the rest of them too I think?
