@@ -15,7 +15,7 @@ import {
 import { NavigationActions, StackActions } from 'react-navigation';
 
 
-import reactIcon from '../react-icon.png';
+import reactIcon from '../Assets/react-icon.png';
 
 import { firebase } from '@react-native-firebase/auth';
 import {

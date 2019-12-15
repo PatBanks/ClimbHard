@@ -11,10 +11,9 @@ import {
     SafeAreaView,
     Button,
     Image,
+    TouchableOpacity,
 } from 'react-native';
 // var StyleSheet = require('react-native-debug-stylesheet');
-
-import reactIcon from '../react-icon.png';
 
 import { firebase } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -26,11 +25,7 @@ import {
 } from '@react-native-community/google-signin';
 
 
-export default class LoginPage extends Component {
-
-    static navigationOptions = {
-        title: 'Profile',
-    };
+export default class ProfileScreen extends Component {
 
     auth = null;
     profile = null;
@@ -76,7 +71,7 @@ export default class LoginPage extends Component {
                 .collection('workouts')
                 .get();
 
-            if ( mUserWorkoutsQuerySnapshot.size !== 0) {
+            if (mUserWorkoutsQuerySnapshot.size !== 0) {
                 console.log(mUserWorkoutsQuerySnapshot);
                 console.log('Total workouts', mUserWorkoutsQuerySnapshot.size);
                 console.log('Workout documents', mUserWorkoutsQuerySnapshot.docs);
