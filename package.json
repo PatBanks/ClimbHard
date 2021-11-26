@@ -15,6 +15,7 @@
     "@react-native-firebase/app": "^6.1.0",
     "@react-native-firebase/auth": "^6.1.0",
     "@react-native-firebase/firestore": "^6.1.0",
+    "handlebars": "^4.7.7",
     "react": "16.9.0",
     "react-native": "^0.61.5",
     "react-native-debug-stylesheet": "^0.1.1",
